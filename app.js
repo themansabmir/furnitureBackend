@@ -1,0 +1,29 @@
+const express = require("express");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const GlobalErrorHandler = require("./src/Errors/GlobalError");
+const { adminRouter, userRouter } = require("./src/indexRouter");
+const CustomError = require("./src/Errors/CustomError");
+
+const app = express();
+
+// initialise required modules
+app.use(cors({ origin: "*" }));
+app.use(express.json());
+app.use(cookieParser());
+
+// to manage routes of ADMIN_PANEL and WEBSITE seperately
+app.get('/', (req,res) => {
+    res.send("Hello World")
+})
+// app.use("/admin", adminRouter);
+// app.use("/users", userRouter);
+
+// to manage incorrect routes
+app.use("*", (err, req, res, next) => {
+ const error = new CustomError(404, `Route `)
+});
+
+
+
+module.exports = app;
