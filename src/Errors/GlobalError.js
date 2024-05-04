@@ -1,8 +1,7 @@
-const CustomError = require('./CustomError')
+const CustomError = require("./CustomError");
 
-
-const developmentError = (res, error) => {
-  res.status(error.statusCode).json({
+const developmentError = (error, res) => {
+  return res.status(error.statusCode).json({
     status: error.statusCode,
     message: error.message,
     stackTrace: error.stack,
@@ -41,13 +40,21 @@ const validationErrorHandler = (err) => {
   return new CustomError(msg, 400);
 };
 
-
-
 module.exports = (error, req, res, next) => {
   error.statusCode = error.statusCode || 500;
   error.status = error.status || "Error";
 
-  if (process.env.NODE_ENV === "development") {
+
+  console.log("inside global")
+  console.log(error)
+  return res.status(error.statusCode).json({
+    status: error.statusCode,
+    message: error.message,
+    stackTrace: error.stack,
+    error: error,
+  });
+
+  if (process.env.NODE_ENV === "X") {
     developmentError(error, res);
   } else if (process.env.NODE_ENV === "production") {
     if (error.name === "CastError") error = castErrorHandler(error);

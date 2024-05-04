@@ -16,8 +16,10 @@ app.use(cookieParser());
 app.get('/', (req,res) => {
     res.send("Hello World")
 })
-// app.use("/admin", adminRouter);
+app.use("/admin", adminRouter);
 // app.use("/users", userRouter);
+
+app.use(GlobalErrorHandler);
 
 // to manage incorrect routes
 app.use("*", (err, req, res, next) => {

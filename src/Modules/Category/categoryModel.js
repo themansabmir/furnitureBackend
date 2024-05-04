@@ -1,0 +1,32 @@
+const mongoose = require("mongoose");
+const categorySchema = new mongoose.Schema(
+  {
+    categoryTitle: {
+      type: String,
+      trim: true,
+      unique: true,
+      required: true,
+      minlength: 3,
+      maxlength: 20,
+    },
+    categoryDescriptipn: {
+      type: String,
+      default: "category description",
+      trim: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    isDelete: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const CATEGORY = new mongoose.model("Category", categorySchema);
+module.exports = CATEGORY;
