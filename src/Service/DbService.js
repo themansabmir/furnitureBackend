@@ -8,7 +8,7 @@ module.exports = class DatabaseService {
     return savedData;
   }
 
-  createMany = async (data) => {
+  saveMany = async (data) => {
     const documents = await this.database.insertMany(data);
     return documents;
   };

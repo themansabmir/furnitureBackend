@@ -10,7 +10,6 @@ adminRouter.use("/category",categoryRouter )
 
 // USER ROUTES
 
-// userRouter.use()
 
 
 

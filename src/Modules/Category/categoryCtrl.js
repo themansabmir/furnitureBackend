@@ -15,23 +15,12 @@ const categoryCtrl = {
       msg: "Category created Successfully",
     });
   }),
-  getAll: async (req, res, next) => {
-
-
-
-
-
-
-  },
-  getById: async (req, res, next) => {
-
-
-
-  },
+  getAll: async (req, res, next) => {},
+  getById: async (req, res, next) => {},
   delete: async (req, res, next) => {
-    const categoryDTO = req.body
+    const categoryDTO = req.body;
 
-    const deletedCategory  = await CategoryService.delete(categoryDTO) 
+    const deletedCategory = await CategoryService.delete(categoryDTO);
   },
   update: async (req, res, next) => {},
 };
