@@ -9,14 +9,14 @@ module.exports = class DatabaseService {
   }
 
   saveMany = async (data) => {
-    const documents = await this.database.insertMany(data);
+    const documents = await this.model.insertMany(data);
     return documents;
   };
 
   getAllDocuments = async (query, options = {}) => {
     const { limit, sort, skip } = options;
 
-    const customQuery = this.database.find(query);
+    const customQuery = this.model.find(query);
 
     if (skip !== "" && limit !== "") {
       customQuery.limit(limit).skip(skip);
@@ -32,27 +32,23 @@ module.exports = class DatabaseService {
     return documents;
   };
 
-  updateDocument = async (filter, data, options) => {
-    const document = await this.database.findOneAndUpdate(
-      filter,
-      data,
-      options
-    );
+  updateDocument = async (filter, data, options = { new: true }) => {
+    const document = await this.model.findOneAndUpdate(filter, data, options);
     return document;
   };
 
   getDocumentById = async (query) => {
-    const document = await this.database.findOne(query);
+    const document = await this.model.findOne(query);
     return document;
   };
 
   deleteDocument = async (data) => {
-    const deletedDocumnent = await this.database.delete(data);
+    const deletedDocumnent = await this.model.delete(data);
     return deletedDocumnent;
   };
 
   totalCounts = async (query) => {
-    const count = await this.database.countDocuments(query);
+    const count = await this.model.countDocuments(query);
     return count;
   };
 };

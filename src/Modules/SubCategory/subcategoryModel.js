@@ -24,6 +24,14 @@ const subcategorySchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  isDelete: {
+    type: Boolean,
+    default: false,
+  },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const SubCategory = new mongoose.model("SubCategory", subcategorySchema);
