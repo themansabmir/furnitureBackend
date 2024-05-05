@@ -5,8 +5,9 @@ const CategoryService = require("./categoryService");
 
 const categoryCtrl = {
   create: asyncHandler(async (req, res, next) => {
-    const {key} = req.body;
-    const savedCategory = await CategoryService.createCategory(key);
+    const categoryDTO = req.body;
+
+    const savedCategory = await CategoryService.createCategory(categoryDTO);
 
     return successResponse({
       res: res,
@@ -14,9 +15,24 @@ const categoryCtrl = {
       msg: "Category created Successfully",
     });
   }),
-  getAll: async (req, res, next) => {},
-  getById: async (req, res, next) => {},
-  delete: async (req, res, next) => {},
+  getAll: async (req, res, next) => {
+
+
+
+
+
+
+  },
+  getById: async (req, res, next) => {
+
+
+
+  },
+  delete: async (req, res, next) => {
+    const categoryDTO = req.body
+
+    const deletedCategory  = await CategoryService.delete(categoryDTO) 
+  },
   update: async (req, res, next) => {},
 };
 
