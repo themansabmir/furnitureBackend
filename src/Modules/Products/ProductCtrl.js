@@ -1,7 +1,6 @@
-
-
-const productService = require('./ProductService')
-
+const asyncHandler = require("../../Utils/asyncHandler");
+const productService = require("./ProductService");
+const successResponse = require("../../Utils/apiResponse");
 
 const productCtrl = {
   create: asyncHandler(async (req, res, next) => {
@@ -21,9 +20,7 @@ const productCtrl = {
 
   getAll: asyncHandler(async (req, res, next) => {
     const productDTO = req.body;
-    const { savedData, totalCount } = await productService.getAll(
-      productDTO
-    );
+    const { savedData, totalCount } = await productService.getAll(productDTO);
     return successResponse({
       res,
       data: savedData,
@@ -57,7 +54,19 @@ const productCtrl = {
       msg: "Product Deleted Successfully",
     });
   }),
+
+  getBySubcategoryId: asyncHandler(async (req, res, next) => {
+    const productDto = req.body;
+    const { savedData, totalCount } = await productService.getBySubcategoryId(
+      productDto
+    );
+    return successResponse({
+      res,
+      data: savedData,
+      count: totalCount,
+      msg: "Products by subcategory Id",
+    });
+  }),
 };
 
-
-module.exports = productCtrl
+module.exports = productCtrl;

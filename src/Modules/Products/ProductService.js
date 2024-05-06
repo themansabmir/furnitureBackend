@@ -1,4 +1,5 @@
 const DbService = require("../../Service/DbService");
+const serviceHandler = require("../../Utils/serviceHandler");
 const ProductsModel = require("./ProductModel");
 
 const model = new DbService(ProductsModel);
@@ -40,6 +41,14 @@ const productService = {
       { isDelete: true }
     );
     return deletedDoc;
+  }),
+
+  getBySubcategoryId: serviceHandler(async (subcategory) => {
+    const { subcategoryId } = subcategory;
+    const query = { isDelete: false, subcategoryId };
+    const savedData = await model.getAllDocuments(query, subcategory);
+    const totalCount =await model.totalCounts(query);
+    return { savedData, totalCount };
   }),
 };
 
