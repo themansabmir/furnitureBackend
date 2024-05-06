@@ -5,7 +5,12 @@ const successResponse = require("../../Utils/apiResponse");
 const subcategoryCtrl = {
   create: asyncHandler(async (req, res, next) => {
     const subcategoryDTO = req.body;
-    const savedData = await subcategoryService.create(subcategoryDTO);
+    let savedData;
+    if (Array.isArray(subcategoryDTO)) {
+      savedData = await subcategoryService.createMany(subcategoryDTO);
+    } else {
+      savedData = await subcategoryService.create(subcategoryDTO);
+    }
     return successResponse({
       res,
       data: savedData,

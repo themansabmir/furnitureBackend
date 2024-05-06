@@ -1,12 +1,19 @@
 const Subcategory = require("./subcategoryModel");
 const DbService = require("../../Service/DbService");
 const serviceHandler = require("../../Utils/serviceHandler");
+const CustomError = require("../../Errors/CustomError");
 
 const model = new DbService(Subcategory);
 
 const subcategoryService = {
   create: serviceHandler(async (data) => {
     return await model.save(data);
+  }),
+
+  createMany: serviceHandler(async (data) => {
+    const isArray = Array.isArray(data);
+    if (!isArray) throw new CustomError(400, "Subcategories should be array");
+    return await model.saveMany(data);
   }),
 
   getAll: serviceHandler(async (data) => {

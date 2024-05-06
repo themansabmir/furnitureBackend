@@ -29,9 +29,9 @@ const categoryService = {
     return updatedDoc;
   }),
   delete: serviceHandler(async (deleteId) => {
-    const { subcategoryId } = deleteId;
+    const { categoryId } = deleteId;
     const deletedDoc = await model.updateDocument(
-      { _id: subcategoryId },
+      { _id: categoryId },
       { isDelete: true }
     );
     return deletedDoc;

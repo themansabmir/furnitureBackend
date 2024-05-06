@@ -17,7 +17,7 @@ module.exports = class DatabaseService {
   getAllDocuments = async (query, options = {}) => {
     const { limit, sort, skip } = options;
 
-    const customQuery = this.model.find(query);
+    let customQuery = this.model.find(query);
 
 
     if (skip !== "" && limit !== "") {
