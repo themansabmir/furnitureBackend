@@ -16,7 +16,8 @@ const productService = {
   }),
 
   getAll: serviceHandler(async (data) => {
-    const query = { isDelete: false };
+    console.log(data)
+    const query = {  };
     const savedData = await model.getAllDocuments(query, data);
     const totalCount = await model.totalCounts({ isDelete: false });
     return { savedData, totalCount };

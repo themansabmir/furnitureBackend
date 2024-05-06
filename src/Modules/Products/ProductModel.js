@@ -44,6 +44,14 @@ const productSchema = new mongoose.Schema({
   salesPrice: {
     type: Number,
   },
+  isDelete: {
+    type: Boolean,
+    default: false,
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const Products = mongoose.model("Products", productSchema);
