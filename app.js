@@ -13,19 +13,19 @@ app.use(express.json());
 app.use(cookieParser());
 
 // to manage routes of ADMIN_PANEL and WEBSITE seperately
-app.get('/', (req,res) => {
-    res.send("Hello World")
-})
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 app.use("/admin", adminRouter);
 // app.use("/users", userRouter);
 
 app.use(GlobalErrorHandler);
 
 // to manage incorrect routes
-app.use("*", (err, req, res, next) => {
- const error = new CustomError(404, `Route `)
+app.use("*", (req, res) => {
+  return res
+    .status(404)
+    .json({ msg: `Requested Route ${req.originalUrl} does not exist ` });
 });
-
-
 
 module.exports = app;

@@ -15,6 +15,7 @@ const categoryCtrl = {
       msg: "Category created Successfully",
     });
   }),
+
   getAll: asyncHandler(async (req, res, next) => {
     const categoryDTO = req.body;
     const { savedData, totalCount } = await CategoryService.getAll(
@@ -50,6 +51,7 @@ const categoryCtrl = {
     } catch (error) {
       next(error);
     }
+
   },
   update: asyncHandler(async (req, res, next) => {
     const docDTO = req.body;
