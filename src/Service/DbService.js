@@ -9,50 +9,46 @@ module.exports = class DatabaseService {
   }
 
   createMany = async (data) => {
-    const documents = await this.database.insertMany(data);
+    const documents = await this.model.insertMany(data);
     return documents;
   };
 
   getAllDocuments = async (query, options = {}) => {
     const { limit, sort, skip } = options;
 
-    const customQuery = this.database.find(query);
+    let customQuery = this.model.find(query);
 
     if (skip !== "" && limit !== "") {
-      customQuery.limit(limit).skip(skip);
+      customQuery = customQuery.limit(limit).skip(skip);
     }
 
     if (sort) {
-      customQuery.sort({ [sort]: -1 });
+      customQuery = customQuery.sort({ [sort]: -1 });
     } else {
-      customQuery.sort({ createdAt: -1 });
+      customQuery = customQuery.sort({ createdAt: -1 });
     }
-    const documents = await customQuery.exec();
 
+    const documents = await customQuery.exec();
     return documents;
   };
 
   updateDocument = async (filter, data, options) => {
-    const document = await this.database.findOneAndUpdate(
-      filter,
-      data,
-      options
-    );
+    const document = await this.model.findOneAndUpdate(filter, data, options);
     return document;
   };
 
   getDocumentById = async (query) => {
-    const document = await this.database.findOne(query);
+    const document = await this.model.findOne(query);
     return document;
   };
 
-  deleteDocument = async (data) => {
-    const deletedDocumnent = await this.database.delete(data);
-    return deletedDocumnent;
+  deleteDocument = async (filter) => {
+    const deletedDocument = await this.model.deleteOne(filter);
+    return deletedDocument;
   };
 
   totalCounts = async (query) => {
-    const count = await this.database.countDocuments(query);
+    const count = await this.model.countDocuments(query);
     return count;
   };
 };
