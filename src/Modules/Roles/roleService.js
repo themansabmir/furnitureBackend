@@ -11,7 +11,8 @@ const roleService = {
   }),
 
   getAll: serviceHandler(async (data) => {
-   const savedData=await model.getAllDocuments({isDelete:false})
+    const query = { isDelete: false };
+   const savedData=await model.getAllDocuments(query,data)
    const totalCount=await model.totalCounts({isDelete:false})
    return{savedData,totalCount}
   }),

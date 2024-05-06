@@ -17,8 +17,8 @@ const roleCtrl = {
     }),
   
     getAll: asyncHandler(async (req, res, next) => {
-    
-     const{savedData,totalCount}=await RoleService.getAll()
+      const roleDTO = req.body;
+     const{savedData,totalCount}=await RoleService.getAll(roleDTO)
      return successResponse({
       res,
      data:savedData,

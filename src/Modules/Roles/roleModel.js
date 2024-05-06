@@ -16,11 +16,8 @@ const roleSchema = new mongoose.Schema({
       isDelete:{
         type: Boolean , 
         default: false 
-      }
-
-      
-     
-      
+      },
+    
       
 });
 

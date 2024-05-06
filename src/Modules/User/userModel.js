@@ -29,18 +29,10 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref:"Roles"
       },
-      departments: [
-        {
-          departmentName: {
-            type: String,
-          },
-          permissions: {
-            type: [String],
-  
-          },
-        },
-      ],
-    },
+      permissions: {
+        type: [String],
+
+      }
      
       
       
