@@ -29,30 +29,12 @@ const categoryCtrl = {
     });
   }),
 
-  getById: async (req, res, next) => {
-    try {
-      const { id } = req.body;
+  getById: asyncHandler(async (req, res, next) => {
+    const docId = req.body;
+    const docById = await CategoryService.getById(docId);
+    return successResponse({ res, data: docById, msg: "category By Id" });
+  }),
 
-      if (!id) {
-        throw new CustomError(400, "Category ID not provided");
-      }
-
-      const category = await CategoryService.getById({ _id: id });
-
-      if (!category) {
-        throw new CustomError(404, "Category not found");
-      }
-
-      return successResponse({
-        res: res,
-        data: category,
-        msg: "Retrieved category successfully",
-      });
-    } catch (error) {
-      next(error);
-    }
-
-  },
   update: asyncHandler(async (req, res, next) => {
     const docDTO = req.body;
     const updatedDoc = await CategoryService.update(docDTO);
