@@ -13,7 +13,10 @@ module.exports = class DatabaseService {
     const documents = await this.model.insertMany(data);
     return documents;
   };
-
+  getDocument = async (query) => {
+    const document = await this.model.findOne(query);
+    return document;
+  };
   getAllDocuments = async (query, options = {}) => {
     const { limit, sort, skip } = options;
     const updatedQuery  ={isDelete: false, ...query}

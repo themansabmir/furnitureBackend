@@ -4,10 +4,11 @@ const router = require('express').Router();
 
 router.post("/create" , userCtrl.create)
 router.post("/getAll" , userCtrl.getAll)
-router.post("/getCategory" , userCtrl.getById)
+router.post("/getUser" , userCtrl.getById)
 router.post("/delete" , userCtrl.delete)
 router.post("/update" , userCtrl.update)
+router.post("/sigIn" , userCtrl.signIn)
 
-const userRouter = router
+const userAdminRouter = router
 
-module.exports= {userRouter}
+module.exports= {userAdminRouter}
