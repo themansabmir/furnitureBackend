@@ -25,7 +25,7 @@ const productCtrl = {
       res,
       data: savedData,
       count: totalCount,
-      msg: "All subcategories",
+      msg: "All Products",
     });
   }),
 
