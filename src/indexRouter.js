@@ -1,4 +1,5 @@
 const { categoryRouter } = require('./Modules/Category/categoryRouter')
+const orderRouter = require('./Modules/Order/orderRouter')
 const productRouter = require('./Modules/Products/ProductRouter')
 const { roleRouter } = require('./Modules/Roles/roleRouter')
 const subcategoryRouter = require('./Modules/SubCategory/subcategoryRouter')
@@ -14,6 +15,7 @@ adminRouter.use("/subcategory" , subcategoryRouter)
 adminRouter.use("/user",userAdminRouter)
 adminRouter.use("/userRole", roleRouter)
 adminRouter.use("/product", productRouter);
+adminRouter.use("/order", orderRouter);
 
 
 
