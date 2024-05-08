@@ -16,9 +16,17 @@ const productService = {
   }),
 
   getAll: serviceHandler(async (data) => {
-    console.log(data)
-    const query = {  };
-    const savedData = await model.getAllDocuments(query, data);
+    const query = {}
+    const updatedData = {
+      ...data,
+      populate: {
+        path: "subcategoryId",
+        populate: {
+          path:"categoryId"
+        }
+     }
+    };
+    const savedData = await model.getAllDocuments(query, updatedData);
     const totalCount = await model.totalCounts({ isDelete: false });
     return { savedData, totalCount };
   }),

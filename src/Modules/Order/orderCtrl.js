@@ -8,6 +8,7 @@ const orderCtrl = {
   create: asyncHandler(async (req, res, next) => {
     const orderData = req.body;
     const savedOrder = await OrderService.create(orderData);
+    savedOrder.populate("")
     return successResponse({
       res: res,
       data: savedOrder,

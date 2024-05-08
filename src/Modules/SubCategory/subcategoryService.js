@@ -18,7 +18,9 @@ const subcategoryService = {
 
   getAll: serviceHandler(async (data) => {
     const query = { isDelete: false };
-    const savedData = await model.getAllDocuments(query, data);
+    const val = {...data, populate:{path:"categoryId"}}
+    const savedData =await model.getAllDocuments(query, val)
+
     const totalCount = await model.totalCounts({ isDelete: false });
     return { savedData, totalCount };
   }),
