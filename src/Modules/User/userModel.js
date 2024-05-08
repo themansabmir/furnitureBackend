@@ -25,6 +25,14 @@ const userSchema = new mongoose.Schema({
         trim: true,
         default: "User Description",
       },
+      isActive:{
+        type: Boolean , 
+        default : true 
+      }, 
+      isDelete:{
+        type: Boolean , 
+        default: false 
+      },
       roleId :{
         type: mongoose.Schema.Types.ObjectId, 
         ref:"Roles"
