@@ -9,6 +9,7 @@ module.exports = class DatabaseService {
   }
 
   saveMany = async (data) => {
+
     const documents = await this.model.insertMany(data);
     return documents;
   };
@@ -31,12 +32,6 @@ module.exports = class DatabaseService {
     } else {
       customQuery = customQuery.sort({ createdAt: -1 });
     }
-    // if (populate) {
-    //   populate.forEach((id) => {
-
-    //     customQuery.populate(id)
-    //   })
-    // }
 
     if (populate) {
       const documents = await customQuery.populate(populate).exec();
@@ -46,19 +41,34 @@ module.exports = class DatabaseService {
     return documents;
   };
 
-  updateDocument = async (filter, data, options = { new: true }) => {
-    const document = await this.model.findOneAndUpdate(filter, data, options);
-    return document;
+
+  updateDocument = async (filter, data, options = { new: true,populate:'' }) => {
+    const { populate, ...updateOptions } = options;
+
+    let customQuery = this.model.findOneAndUpdate(filter, data, updateOptions);
+
+    if (populate) {
+        customQuery = customQuery.populate(populate);
+    }
+
+    const updatedDocument = await customQuery.exec();
+    return updatedDocument;
   };
 
-  getDocumentById = async (query) => {
-    const document = await this.model.findOne(query);
+  getDocumentById = async (query,{populateOptions = ''}) => {
+    let customQuery = this.model.findOne(query);
+
+    if (populateOptions) {
+        customQuery = customQuery.populate(populateOptions);
+    }
+
+    const document = await customQuery.exec();
     return document;
   };
 
   deleteDocument = async (data) => {
-    const deletedDocumnent = await this.model.delete(data);
-    return deletedDocumnent;
+    const deletedDocument = await this.model.delete(data);
+    return deletedDocument;
   };
 
   totalCounts = async (query) => {

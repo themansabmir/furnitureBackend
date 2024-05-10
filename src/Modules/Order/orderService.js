@@ -11,31 +11,60 @@ const orderService = {
   }),
 
   getAll: serviceHandler(async (data) => {
-    const query = { isDelete: false };
-    const savedData = await model.getAllDocuments(query, data);
+    const query = {};
+    const updatedData = {
+      ...data,
+      populate: {
+        path: "products.productId",
+      },
+      populate: {
+        path: "customerId",
+      },
+    };
+    const savedData = await model.getAllDocuments(query, updatedData);
     const totalCount = await model.totalCounts({ isDelete: false });
     return { savedData, totalCount };
   }),
   getById: serviceHandler(async (dataId) => {
     const { orderId } = dataId;
     const query = { isDelete: false, _id: orderId };
-    const savedDataById = await model.getDocumentById(query);
+    const updatedData = {
+      populate: {
+        path: "products.productId",
+      },
+      populate: {
+        path: "customerId",
+      },
+    };
+    const savedDataById = await model.getDocumentById(query, updatedData);
     return savedDataById;
   }),
   update: serviceHandler(async (updateData) => {
-const{orderId}=updateData;
-const filter={_id:orderId};
-const updatePayload={...updateData}
-const updatedDoc=await model.updateDocument(filter,updatePayload)
-return updatedDoc
+    const { orderId } = updateData;
+    const filter = { _id: orderId };
+    const updatePayload = { ...updateData };
+    const updatedData = {
+      populate: {
+        path: "products.productId",
+      },
+      populate: {
+        path: "customerId",
+      },
+    };
+    const updatedDoc = await model.updateDocument(
+      filter,
+      updatePayload,
+      updatedData
+    );
+    return updatedDoc;
   }),
   delete: serviceHandler(async (deleteId) => {
-    const {orderId}=deleteId;
-    const deletedDoc=await model.updateDocument(
-        {_id:orderId},
-        {isDelete:true}
+    const { orderId } = deleteId;
+    const deletedDoc = await model.updateDocument(
+      { _id: orderId },
+      { isDelete: true }
     );
-return deletedDoc;
+    return deletedDoc;
   }),
 };
 

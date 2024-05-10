@@ -1,4 +1,5 @@
 const { categoryRouter } = require('./Modules/Category/categoryRouter')
+const { customerRouter } = require('./Modules/Customer/customerRouter')
 const orderRouter = require('./Modules/Order/orderRouter')
 const productRouter = require('./Modules/Products/ProductRouter')
 const { roleRouter } = require('./Modules/Roles/roleRouter')
@@ -19,9 +20,10 @@ adminRouter.use("/order", orderRouter);
 
 
 
+
 // USER ROUTES
 
-
+userRouter.use("/customer", customerRouter);
 
 
 module.exports= {adminRouter, userRouter}
